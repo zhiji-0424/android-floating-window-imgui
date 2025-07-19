@@ -1,0 +1,13 @@
+# sdl源代码
+SDL3-3.2.16/
+DearImGui-1.92.1/
+stb-date-05.26/
+
+# 文件备份
+*.bak
+
+# aide 构建输出
+build/
+jniLibs/
+obj/
+libs/

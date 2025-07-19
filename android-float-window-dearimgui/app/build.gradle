@@ -1,0 +1,77 @@
+apply plugin: "com.android.application"
+
+android {
+	buildToolsVersion "34.0.0"
+	compileSdkVersion 34
+	
+	namespace "io.github.androidfloatwindowdearimgui"
+	defaultConfig {
+		applicationId "io.github.androidfloatwindowdearimgui"
+		minSdkVersion 21
+		targetSdkVersion 34
+		versionCode 1
+		versionName "1.0"
+	}
+	
+	// ecj模式(设置 -> 实验室 -> ecj)设置Java语法版本
+	compileOptions {
+		// AIDE+最高支持23，gradle 8.5仅到17
+		sourceCompatibility JavaVersion.VERSION_17
+		targetCompatibility JavaVersion.VERSION_17
+	}
+	
+	// 签名文件配置
+	/*signingConfigs{
+		// release自行配置
+		release{
+			keyAlias "AIDE+"
+			keyPassword "123789456"
+			storePassword "123789456"
+			storeFile file("app-release.jks")
+		}
+		debug{
+			keyAlias "androiddebug"
+			keyPassword "123789456"
+			storePassword "123789456"
+			storeFile file("app-debug.jks")
+		}
+	}*/
+	
+	buildTypes {
+		// 仅支持配置release(但不分是否是 release)
+		// 仅当值为true时启用
+		release {
+			// 资源混淆
+			shrinkResources false
+			// 代码混淆[增量构建失效]
+			minifyEnabled false
+			// 代码混淆配置文件
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+	
+	// viewBinding配置
+	buildFeatures{
+		// true则启用 viewBinding
+		viewBinding false
+		// 使用Androidx，暂时先这样
+		// 默认为true，gradle 8.5不支持此写法
+		// 请更改gradle.properties文件 android.useAndroidX
+		// useAndroidx true
+	}
+}
+
+dependencies {
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	
+	// 如果出现kotlin库的类冲突，取消下一行注释
+	// api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.0"
+	
+	// 用于放置打包jar根目录classes{N}.dex文件
+	// 也支持资源文件
+	// 注意 gradle不支持打包classes{N}.dex
+	runtimeOnly fileTree(dir: 'runtime', include: ['*.jar'])
+	// 仅编译 与 gradle一致
+	compileOnly fileTree(dir: 'provider', include: ['.jar'])
+	
+}
