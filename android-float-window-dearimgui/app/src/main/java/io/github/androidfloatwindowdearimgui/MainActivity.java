@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
     {
         super.onDestroy();
         Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show();
+        // 似乎返回键按下后不会销毁？
     }
     
     
@@ -62,10 +63,12 @@ public class MainActivity extends Activity {
 		((TextView) float_view).setText("hello这是中文。😁(／_＼)大怨种");
 		((TextView) float_view).setTextColor(0xffffffff);
 		((TextView) float_view).setBackgroundColor(0x80ff0011);
-		float_view.setLayoutParams(
-				new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+		
+        /*float_view = new NativeView(this);*/
+        float_view.setLayoutParams(
+		    new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT));
         
         // 这里就不适配旧系统了
         int layout_flag = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -77,8 +80,8 @@ public class MainActivity extends Activity {
                 | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT);
         // layout_params.gravity = Gravity.TOP | Gravity.START;
-        layout_params.x = (500);
-        layout_params.y = (500);
+        layout_params.x = 0;
+        layout_params.y = 0;
         
         window_manager = (WindowManager)getSystemService(WINDOW_SERVICE);
         window_manager.addView(float_view, layout_params);
@@ -113,6 +116,7 @@ public class MainActivity extends Activity {
                             params.x = initialX + (int) (event.getRawX() - initialTouchX);
                             params.y = initialY + (int) (event.getRawY() - initialTouchY);
                             window_manager.updateViewLayout(float_view, params);
+                            ((TextView)float_view).setText(String.valueOf(params.x) + "," + String.valueOf(params.y));
                             return true;
                     }
                     return false;
