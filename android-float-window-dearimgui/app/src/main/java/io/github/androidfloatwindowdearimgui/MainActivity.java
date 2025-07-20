@@ -18,7 +18,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.main);
 
 		if (have_permission()) {
-			CreateService();
+			StartService();
 		} else {
 			Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
 					Uri.parse("package:" + getPackageName()));
@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
 		if (requestCode == 1) {
 			// 是请求悬浮窗返回的
 			if (have_permission()) {
-				CreateService();
+				StartService();
 			} else {
 				Toast.makeText(this, "在刚刚的页面没有授权", Toast.LENGTH_LONG).show();
 			}
@@ -52,9 +52,13 @@ public class MainActivity extends Activity {
 		return Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(this);
 	}
     
-    void CreateService() {
+    void StartService() {
         Intent intent = new Intent(this, FloatWindowService.class);
         startService(intent);
         Toast.makeText(this, "悬浮窗服务已启动", Toast.LENGTH_SHORT).show();
     }
+	
+	void StopService() {
+		
+	}
 }
