@@ -15,9 +15,9 @@ LOCAL_SRC_FILES := \
     $(IMGUI_DIR)/imgui_demo.cpp \
     $(IMGUI_DIR)/imgui_draw.cpp \
     $(IMGUI_DIR)/imgui_tables.cpp \
-    $(IMGUI_DIR)/imgui_widgets.cpp
-#     $(IMGUI_DIR)/backends/imgui_impl_sdl3.cpp \
-#     $(IMGUI_DIR)/backends/imgui_impl_sdlrenderer3.cpp
+    $(IMGUI_DIR)/imgui_widgets.cpp \
+    $(IMGUI_DIR)/backends/imgui_impl_android.cpp \
+    $(IMGUI_DIR)/backends/imgui_impl_opengl3.cpp
 
 # 如果有头文件，可以指定包含路径（可选）
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/$(IMGUI_DIR) $(LOCAL_PATH)/$(IMGUI_DIR)/backends

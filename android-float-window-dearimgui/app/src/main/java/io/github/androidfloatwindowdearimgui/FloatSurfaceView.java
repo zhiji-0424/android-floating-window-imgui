@@ -24,7 +24,7 @@ public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	public void surfaceCreated(SurfaceHolder holder) {
 		// 画布创建就开始绘图
 		running = true;
-		jnicallbacks.AppInit();
+		jnicallbacks.AppInit(holder.getSurface());
 		thread = new RendererThread();
 		thread.start();
 	}
