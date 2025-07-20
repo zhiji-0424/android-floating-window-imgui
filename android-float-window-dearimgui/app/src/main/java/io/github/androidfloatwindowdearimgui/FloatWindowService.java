@@ -77,6 +77,7 @@ public class FloatWindowService extends Service {
 			| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSPARENT);
         // layout_params.gravity = Gravity.TOP | Gravity.START;
+		layout_params.format = PixelFormat.RGBA_8888;
         layout_params.x = 0;
         layout_params.y = 0;
 

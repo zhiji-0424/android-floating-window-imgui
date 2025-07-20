@@ -6,6 +6,7 @@
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
 #include <string>
+#include <thread>
 
 // Data
 static EGLDisplay           g_EglDisplay = EGL_NO_DISPLAY;
@@ -24,6 +25,7 @@ static std::string          g_IniFilename = "";
 }*/
 
 
+void AppIterateLoop(); // 创建线程要用
 
 void AppInit(ANativeWindow *window)
 {
@@ -122,6 +124,11 @@ void AppInit(ANativeWindow *window)
     ImGui::GetStyle().ScaleAllSizes(3.0f);
 
     g_Initialized = true;
+    
+    std::thread t(AppIterateLoop);
+    t.detach();
+    
+    // system("echo xxxx >> /storage/emulated/0/Android/data/io.github.androidfloatwindowdearimgui/files/a.txt");
 }
 
 void AppEvent()
@@ -195,10 +202,22 @@ void AppIterate()
     // Rendering
     ImGui::Render();
     glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
-    glClear(GL_COLOR_BUFFER_BIT);
+    // glClear(GL_COLOR_BUFFER_BIT);
+    
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     eglSwapBuffers(g_EglDisplay, g_EglSurface);
+    
+    // system("echo xxxx >> /storage/emulated/0/Android/data/io.github.androidfloatwindowdearimgui/files/a.txt");
+}
+
+void AppIterateLoop()
+{
+    while (true)
+    {
+        AppIterate();
+    }
 }
 
 void AppQuit()
