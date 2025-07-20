@@ -5,6 +5,7 @@ import android.content.*;
 import android.widget.Toast.*;
 import android.util.*;
 import android.graphics.*;
+import net.zhiji.androidfloatingwindowimgui.*;
 
 public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -23,12 +24,14 @@ public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	public void surfaceCreated(SurfaceHolder holder) {
 		// 画布创建就开始绘图
 		running = true;
+		jnicallbacks.AppInit();
 		thread = new RendererThread();
 		thread.start();
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
+		jnicallbacks.AppQuit();
 		running = false;
 		if (thread != null) {
 			try {
@@ -60,6 +63,7 @@ public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 				// p.setColor(Color.GREEN);
 				// c.drawText("hello,surface创建完成。", 0, 0, p);
 				// holder.unlockCanvasAndPost(c);
+				jnicallbacks.AppIterate();
 			}
 		}
 
