@@ -1,12 +1,12 @@
 # Android Floating Window ImGui
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Android-7.0%2B-green?logo=android" alt="Android"/>
-  <img src="https://img.shields.io/badge/NDK-21%2B-blue?logo=android" alt="NDK"/>
-  <img src="https://img.shields.io/badge/OpenGL%20ES-3.0%2B-orange?logo=opengl" alt="OpenGL ES"/>
-  <img src="https://img.shields.io/badge/dear%20imgui-1.89%2B-lightgrey?logo=imgui" alt="dear imgui"/>
-  <img src="https://img.shields.io/badge/License-MIT-yellow" alt="License: MIT"/>
-</p>
+![Android](https://img.shields.io/badge/Android-7.0%2B-green?logo=android)
+![NDK](https://img.shields.io/badge/NDK-21%2B-blue?logo=android)
+![OpenGL ES](https://img.shields.io/badge/OpenGL%20ES-3.0%2B-orange?logo=opengl)
+![dear imgui](https://img.shields.io/badge/dear%20imgui-1.89%2B-lightgrey?logo=imgui)
+![C++](https://img.shields.io/badge/C%2B%2B-17%2B-blue?logo=c%2B%2B)
+![Java](https://img.shields.io/badge/Java-8%2B-brightgreen?logo=java)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
 
 ## 项目简介
 
