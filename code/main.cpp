@@ -45,6 +45,78 @@ __android_log_print(ANDROID_LOG_ERROR, g_LogTag, "%s", "呼呼jjjhhhhhh哈哈哈
         return;
 
     ::window = window;
+    
+    
+    std::thread *t = new std::thread(AppIterateLoop);
+    t->detach();
+    //eglSwapBuffers(g_EglDisplay, g_EglSurface);checkEglError("eglSwapBuffers");
+    // system("echo xxxx >> /storage/emulated/0/Android/data/io.github.androidfloatwindowdearimgui/files/a.txt");
+	//for (int i=0;i<100;i++)
+	//AppIterate();
+	
+	LOGE("sieiieieiejejejejdjejejejejejejjfjfbfbehehe==============");
+}
+
+#define LOG_TAG "测试"
+void checkEglError(const char* operation) {
+    EGLint error = eglGetError();
+    if (error != EGL_SUCCESS) {
+        __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL error after %s: 0x%x", operation, error);
+        // 可以根据错误码输出更详细的描述
+        switch(error) {
+            case EGL_NOT_INITIALIZED:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_NOT_INITIALIZED: EGL not initialized or failed to initialize");
+                break;
+            case EGL_BAD_ACCESS:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_ACCESS: EGL cannot access a requested resource");
+                break;
+            case EGL_BAD_ALLOC:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_ALLOC: EGL failed to allocate resources");
+                break;
+            case EGL_BAD_ATTRIBUTE:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_ATTRIBUTE: An unrecognized attribute was specified");
+                break;
+            case EGL_BAD_CONTEXT:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_CONTEXT: Invalid EGL context");
+                break;
+            case EGL_BAD_CONFIG:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_CONFIG: Invalid EGL frame buffer configuration");
+                break;
+            case EGL_BAD_CURRENT_SURFACE:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_CURRENT_SURFACE: Current surface is no longer valid");
+                break;
+            case EGL_BAD_DISPLAY:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_DISPLAY: Invalid EGL display");
+                break;
+            case EGL_BAD_SURFACE:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_SURFACE: Invalid surface (window, pbuffer, etc.)");
+                break;
+            case EGL_BAD_MATCH:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_MATCH: Arguments are inconsistent");
+                break;
+            case EGL_BAD_PARAMETER:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_PARAMETER: One or more parameters are invalid");
+                break;
+            case EGL_BAD_NATIVE_PIXMAP:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_NATIVE_PIXMAP: Invalid native pixmap");
+                break;
+            case EGL_BAD_NATIVE_WINDOW:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_NATIVE_WINDOW: Invalid native window");
+                break;
+            case EGL_CONTEXT_LOST:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_CONTEXT_LOST: Context lost due to power management event");
+                break;
+            default:
+                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "Unknown EGL error");
+        }
+    }
+}
+
+void AppEvent()
+{
+}
+void AppIterateLoop()
+{
     ANativeWindow_acquire(window);
 
     // Initialize EGL
@@ -159,78 +231,8 @@ __android_log_print(ANDROID_LOG_ERROR, g_LogTag, "%s", "呼呼jjjhhhhhh哈哈哈
     ImGui::GetStyle().FontScaleDpi = 1.0f;
 
     g_Initialized = true;
-    
-    //std::thread *t = new std::thread(AppIterateLoop);
-    //t->detach();
-    //eglSwapBuffers(g_EglDisplay, g_EglSurface);checkEglError("eglSwapBuffers");
-    // system("echo xxxx >> /storage/emulated/0/Android/data/io.github.androidfloatwindowdearimgui/files/a.txt");
-	for (int i=0;i<100;i++)
-	AppIterate();
-	
-	LOGE("sieiieieiejejejejdjejejejejejejjfjfbfbehehe==============");
-}
-
-#define LOG_TAG "测试"
-void checkEglError(const char* operation) {
-    EGLint error = eglGetError();
-    if (error != EGL_SUCCESS) {
-        __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL error after %s: 0x%x", operation, error);
-        // 可以根据错误码输出更详细的描述
-        switch(error) {
-            case EGL_NOT_INITIALIZED:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_NOT_INITIALIZED: EGL not initialized or failed to initialize");
-                break;
-            case EGL_BAD_ACCESS:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_ACCESS: EGL cannot access a requested resource");
-                break;
-            case EGL_BAD_ALLOC:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_ALLOC: EGL failed to allocate resources");
-                break;
-            case EGL_BAD_ATTRIBUTE:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_ATTRIBUTE: An unrecognized attribute was specified");
-                break;
-            case EGL_BAD_CONTEXT:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_CONTEXT: Invalid EGL context");
-                break;
-            case EGL_BAD_CONFIG:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_CONFIG: Invalid EGL frame buffer configuration");
-                break;
-            case EGL_BAD_CURRENT_SURFACE:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_CURRENT_SURFACE: Current surface is no longer valid");
-                break;
-            case EGL_BAD_DISPLAY:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_DISPLAY: Invalid EGL display");
-                break;
-            case EGL_BAD_SURFACE:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_SURFACE: Invalid surface (window, pbuffer, etc.)");
-                break;
-            case EGL_BAD_MATCH:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_MATCH: Arguments are inconsistent");
-                break;
-            case EGL_BAD_PARAMETER:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_PARAMETER: One or more parameters are invalid");
-                break;
-            case EGL_BAD_NATIVE_PIXMAP:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_NATIVE_PIXMAP: Invalid native pixmap");
-                break;
-            case EGL_BAD_NATIVE_WINDOW:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_BAD_NATIVE_WINDOW: Invalid native window");
-                break;
-            case EGL_CONTEXT_LOST:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "EGL_CONTEXT_LOST: Context lost due to power management event");
-                break;
-            default:
-                __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "Unknown EGL error");
-        }
-    }
-}
-
-void AppEvent()
-{
-}
-void AppIterateLoop()
-{
-    for (int i=0;i<100;i++)
+    //for (int i=0;i<100;i++)
+    while(true)
     {
         AppIterate();
     }
@@ -241,7 +243,7 @@ int aaa=0;
 void AppIterate()
 {
 // checkEglError("未知错误未知错误未知错误未知错误未知错误未知错误");
-LOGE("hhhh");
+//LOGE("hhhh");
 
     ImGuiIO& io = ImGui::GetIO();
     if (g_EglDisplay == EGL_NO_DISPLAY)
