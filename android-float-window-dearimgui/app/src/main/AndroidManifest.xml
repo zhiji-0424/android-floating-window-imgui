@@ -3,7 +3,8 @@
 
 	<!-- 悬浮窗权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-
+<!-- Android 11+ 全盘访问（仅限文件管理器类应用） -->
+	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
     <uses-sdk
         android:minSdkVersion="21"
         android:targetSdkVersion="35" />
@@ -24,6 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		<activity
+			android:name=".ErrorActivity">
+		</activity>
 		<service
 			android:exported="true"
 			android:enabled="true"

@@ -39,9 +39,9 @@ public class FloatWindowService extends Service {
 
 	// 创建
 	void CreateFloatWindow() {
-		Toast.makeText(this, "创建了: CreateFloatWindow", Toast.LENGTH_SHORT).show();
+		// Toast.makeText(this, "创建了: CreateFloatWindow", Toast.LENGTH_SHORT).show();
 		float_view = new FloatSurfaceView(this);
-		
+		float_view.getHolder().setFormat(PixelFormat.TRANSPARENT);
 	}
 
 	// 关闭 销毁
@@ -60,7 +60,7 @@ public class FloatWindowService extends Service {
 	}
 	
 	void StartFloatWindow() {
-		Toast.makeText(this, "成功，仍待完善。", Toast.LENGTH_LONG).show();
+		// Toast.makeText(this, "成功，仍待完善。", Toast.LENGTH_LONG).show();
 
         float_view.setLayoutParams(
 		    new ViewGroup.LayoutParams(

@@ -26,7 +26,7 @@ LOCAL_LDLIBS := -lEGL -lGLESv3 -landroid -llog
 
 # 导入库
 LOCAL_SHARED_LIBRARIES := 
-LOCAL_STATIC_LIBRARIES := dearimgui stb
+LOCAL_STATIC_LIBRARIES := dearimgui
 
 # 构建动态库
 include $(BUILD_SHARED_LIBRARY)
