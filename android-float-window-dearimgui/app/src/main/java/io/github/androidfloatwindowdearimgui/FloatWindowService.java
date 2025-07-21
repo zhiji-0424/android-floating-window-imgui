@@ -73,10 +73,15 @@ public class FloatWindowService extends Service {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT,
             layout_flag,
-            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-			| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-            PixelFormat.TRANSPARENT);
-        // layout_params.gravity = Gravity.TOP | Gravity.START;
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+			| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+			| WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+			| WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+			| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+			| WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            PixelFormat.TRANSLUCENT);
+        layout_params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+		// layout_params.gravity = Gravity.TOP | Gravity.START;
 		layout_params.format = PixelFormat.RGBA_8888;
         layout_params.x = 0;
         layout_params.y = 0;
