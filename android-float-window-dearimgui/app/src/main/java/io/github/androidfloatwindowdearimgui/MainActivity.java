@@ -17,8 +17,7 @@ public class MainActivity extends Activity {
 	
 	TextView text_view = null;
 	FloatSurfaceView fv = null;
-	NativeActivity djdjfkdj;
-    
+	
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +29,7 @@ public class MainActivity extends Activity {
 		//fv = new FloatSurfaceView(this);
 		//setContentView(fv);
 
+		// 请求权限
 		if (have_permission()) {
 			StartService();
 		} else {
@@ -39,7 +39,7 @@ public class MainActivity extends Activity {
 			// 请求码是1。
 		}
 		
-		
+		// 输出日志
 		new Thread(new Runnable() {
 				@Override
 				public void run()
@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
     }
 	
 	void StopService() {
-		
+		// 待完善
 	}
 	
 	// 日志记录
@@ -108,11 +108,11 @@ public class MainActivity extends Activity {
 				// 每收集 1 行就发送一次
 				if (lineCount >= 50) {
 					final String logStr = String.join("\n", lines);
-					// Toast.makeText(getApplicationContext(), logStr, Toast.LENGTH_SHORT);
 					// handler.post();
 
+					// 线程中不支持以下做法
 					// Toast.makeText(getApplicationContext(), logStr, Toast.LENGTH_SHORT).show();
-					
+					// 这个也不支持
 					/*AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					builder.setTitle("日志").setMessage(logStr);
 					builder.show();*/
@@ -122,14 +122,16 @@ public class MainActivity extends Activity {
 							@Override
 							public void run()
 							{
+								// 显示的同时复制到剪贴板
 								text_view.setText(logStr);
 								ClipboardManager cm = (ClipboardManager)getSystemService(CLIPBOARD_SERVICE);
 								ClipData data = ClipData.newPlainText("label", logStr);
-								cm.setPrimaryClip(data);
+								//先不复制了（好像直接看TextView就好） cm.setPrimaryClip(data);
 							}
 						});
 					/*fw.write(logStr+"\n");
 					fw.flush();*/
+					//写文件不知道为什么写不出
 
 					lines.clear();
 					lineCount = 0;

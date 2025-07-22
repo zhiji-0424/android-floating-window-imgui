@@ -8,7 +8,7 @@ import net.zhiji.androidfloatingwindowimgui.*;
 public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callback {
 
 	SurfaceHolder holder = null;
-	boolean running = false;
+	//boolean running = false;
 
 	public FloatSurfaceView(Context context) {
 		super(context);
@@ -21,14 +21,14 @@ public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
 		// 画布创建就开始绘图
-		running = true;
+		//running = true;
 		jnicallbacks.AppInit(holder.getSurface());
 	}
 
 	@Override
 	public void surfaceDestroyed(SurfaceHolder holder) {
 		jnicallbacks.AppQuit();
-		running = false;
+		//running = false;
 	}
 
 	@Override
