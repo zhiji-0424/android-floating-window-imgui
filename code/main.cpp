@@ -39,7 +39,7 @@ void checkEglError(const char* operation);
 
 void AppInit(ANativeWindow *window)
 {
-__android_log_print(ANDROID_LOG_ERROR, g_LogTag, "%s", "呼呼jjjhhhhhh哈哈哈哈哈哈哈哈哈");
+    __android_log_print(ANDROID_LOG_ERROR, g_LogTag, "%s", "呼呼jjjhhhhhh哈哈哈哈哈哈哈哈哈");
 
     if (g_Initialized)
         return;
@@ -54,7 +54,7 @@ __android_log_print(ANDROID_LOG_ERROR, g_LogTag, "%s", "呼呼jjjhhhhhh哈哈哈
 	//for (int i=0;i<100;i++)
 	//AppIterate();
 	
-	LOGE("sieiieieiejejejejdjejejejejejejjfjfbfbehehe==============");
+	LOGE("init结束。sieiieieiejejejejdjejejejejejejjfjfbfbehehe==============");
 }
 
 #define LOG_TAG "测试"
@@ -129,14 +129,15 @@ void AppIterateLoop()
         return ;
     }
     LOGE("生成g_EglDisplay");
-	checkEglError("");
+	//checkEglError("");
     //2、
     EGLint *version = new EGLint[2];
     if (!eglInitialize(g_EglDisplay, &version[0], &version[1])) {
         LOGE("eglInitialize error=%u", glGetError());
         return ;
     }
-    LOGE("eglInitialize成功");checkEglError("");
+    LOGE("eglInitialize成功");
+    //checkEglError("");
     //3、
     const EGLint attribs[] = {EGL_BUFFER_SIZE, 32, EGL_RED_SIZE, 8, EGL_GREEN_SIZE, 8,
                               EGL_BLUE_SIZE, 8, EGL_ALPHA_SIZE, 8, EGL_DEPTH_SIZE, 8, EGL_STENCIL_SIZE, 8, EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT, EGL_SURFACE_TYPE, EGL_WINDOW_BIT, EGL_NONE};
@@ -146,13 +147,15 @@ void AppIterateLoop()
         LOGE("eglGetConfigs  error =%u", glGetError());
         return ;
     }
-    LOGE("num_config=%d", num_config);checkEglError("");
+    LOGE("num_config=%d", num_config);
+    //checkEglError("");
     // 4、
     if (!eglChooseConfig(g_EglDisplay, attribs, &mEglConfig, 1, &num_config)) {
         LOGE("eglChooseConfig  error=%u", glGetError());
         return ;
     }
-    LOGE("eglChooseConfig成功");checkEglError("");
+    LOGE("eglChooseConfig成功");
+    //checkEglError("");
     //5、
     int attrib_list[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
     g_EglContext = eglCreateContext(g_EglDisplay, mEglConfig, EGL_NO_CONTEXT, attrib_list);
@@ -166,13 +169,15 @@ void AppIterateLoop()
         LOGE("eglCreateWindowSurface  error = %u", glGetError());
         return ;
     }
-    LOGE("eglCreateWindowSurface成功");checkEglError("");
+    LOGE("eglCreateWindowSurface成功");
+    //checkEglError("");
     //7、
     if (!eglMakeCurrent(g_EglDisplay, g_EglSurface, g_EglSurface, g_EglContext)) {
         LOGE("eglMakeCurrent  error = %u", glGetError());
         return ;
     }
-    LOGE("eglMakeCurrent成功");checkEglError("");
+    LOGE("eglMakeCurrent成功");
+    //checkEglError("");
     }
 
     // Setup Dear ImGui context
@@ -238,12 +243,10 @@ void AppIterateLoop()
     }
 }
 
-int aaa=0;
-
 void AppIterate()
 {
-// checkEglError("未知错误未知错误未知错误未知错误未知错误未知错误");
-//LOGE("hhhh");
+    // checkEglError("未知错误未知错误未知错误未知错误未知错误未知错误");
+    //LOGE("hhhh");
 
     ImGuiIO& io = ImGui::GetIO();
     if (g_EglDisplay == EGL_NO_DISPLAY)
@@ -266,23 +269,27 @@ void AppIterate()
     WantTextInputLast = io.WantTextInput;*/
 
     // Start the Dear ImGui frame
-    ImGui_ImplOpenGL3_NewFrame();checkEglError("ImGui_ImplOpenGL3_NewFrame");
-    ImGui_ImplAndroid_NewFrame();checkEglError("ImGui_ImplAndroid_NewFrame");
-    ImGui::NewFrame();checkEglError("NewFrame");
+    ImGui_ImplOpenGL3_NewFrame();
+    //checkEglError("ImGui_ImplOpenGL3_NewFrame");
+    ImGui_ImplAndroid_NewFrame();
+    //checkEglError("ImGui_ImplAndroid_NewFrame");
+    ImGui::NewFrame();
+    //checkEglError("NewFrame");
 
     // 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
-    //if (show_demo_window)
-        ImGui::ShowDemoWindow(0);checkEglError("ShowDemoWindow");
+    if (show_demo_window)
+        ImGui::ShowDemoWindow(0);
+    //checkEglError("ShowDemoWindow");
     // 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
     {
         static float f = 0.0f;
         static int counter = 0;
 
-        //。ImGui::Begin("Hello, world!"); // Create a window called "Hello, world!" and append into it.
+        ImGui::Begin("Hello, world!"); // Create a window called "Hello, world!" and append into it.
 
         ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        //ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-        //ImGui::Checkbox("Another Window", &show_another_window);
+        ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+        ImGui::Checkbox("Another Window", &show_another_window);
 
         ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
         ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
@@ -293,8 +300,9 @@ void AppIterate()
         ImGui::Text("counter = %d", counter);
 
         ImGui::Text(" %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
-        //ImGui::End();
-    }checkEglError("Hello, world");
+        ImGui::End();
+    }
+    //checkEglError("Hello, world");
 
     // 3. Show another simple window.
     if (show_another_window)
@@ -304,25 +312,23 @@ void AppIterate()
         if (ImGui::Button("Close Me"))
             show_another_window = false;
         ImGui::End();
-    }checkEglError("show_another_windowd");
+    }
+    //checkEglError("show_another_windowd");
 
     // Rendering
-    ImGui::Render();checkEglError("Render");
-    glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);checkEglError("glViewport");glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+    ImGui::Render();
+    //checkEglError("Render");
+    glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+    //checkEglError("glViewport");
+    //glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
     glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // glClear(GL_COLOR_BUFFER_BIT);
     
-    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());checkEglError("ImGui_ImplOpenGL3_RenderDrawData");
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    //checkEglError("ImGui_ImplOpenGL3_RenderDrawData");
     eglSwapBuffers(g_EglDisplay, g_EglSurface);
     //checkEglError("eglSwapBuffers:313");
-	aaa++;
-	if (aaa<=30){
-	//checkEglError("eglSwapBuffers");
-    }
-	
-	
-    // system("echo xxxx >> /storage/emulated/0/Android/data/io.github.androidfloatwindowdearimgui/files/a.txt");
 }
 
 void AppQuit()
