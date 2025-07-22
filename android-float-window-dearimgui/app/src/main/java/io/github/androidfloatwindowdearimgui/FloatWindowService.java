@@ -41,7 +41,8 @@ public class FloatWindowService extends Service {
 	void CreateFloatWindow() {
 		// Toast.makeText(this, "创建了: CreateFloatWindow", Toast.LENGTH_SHORT).show();
 		float_view = new FloatSurfaceView(this);
-		float_view.getHolder().setFormat(PixelFormat.TRANSPARENT);
+		// float_view.getHolder().setFormat(PixelFormat.TRANSPARENT);
+		float_view.setZOrderOnTop(true);
 	}
 
 	// 关闭 销毁
@@ -68,7 +69,7 @@ public class FloatWindowService extends Service {
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         // 这里就不适配旧系统了
-        int layout_flag = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        /*int layout_flag = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         WindowManager.LayoutParams layout_params = new WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -79,10 +80,20 @@ public class FloatWindowService extends Service {
 			| WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
 			| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
 			| WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            PixelFormat.TRANSLUCENT);
-        layout_params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+            PixelFormat.TRANSLUCENT);*/
+        // layout_params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
 		// layout_params.gravity = Gravity.TOP | Gravity.START;
-		layout_params.format = PixelFormat.RGBA_8888;
+		WindowManager.LayoutParams layout_params = new WindowManager.LayoutParams();
+		layout_params.format = PixelFormat.RGBA_8888;            // 设置图片格式，效果为背景透明
+		layout_params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        layout_params.flags = //WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+			// WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+			WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+			| WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+			//| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+			| WindowManager.LayoutParams.FLAG_FULLSCREEN;
+		//layout_params.format = PixelFormat.RGBA_8888;
+		//layout_params.alpha = 0.0f;
         layout_params.x = 0;
         layout_params.y = 0;
 

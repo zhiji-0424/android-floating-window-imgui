@@ -308,9 +308,9 @@ void AppIterate()
 
     // Rendering
     ImGui::Render();checkEglError("Render");
-    glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);checkEglError("glViewport");
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);checkEglError("glViewport");glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
     glClearColor(clear_color.x * clear_color.w, clear_color.y * clear_color.w, clear_color.z * clear_color.w, clear_color.w);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // glClear(GL_COLOR_BUFFER_BIT);
     
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());checkEglError("ImGui_ImplOpenGL3_RenderDrawData");
