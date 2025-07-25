@@ -6,6 +6,7 @@ import android.content.res.*;
 import android.widget.*;
 import android.view.*;
 import android.graphics.*;
+import android.util.*;
 
 // 默认了权限具备才会启动服务
 
@@ -81,7 +82,7 @@ public class FloatWindowService extends Service {
 	void StartFloatWindow() {
         window_manager = (WindowManager)getSystemService(WINDOW_SERVICE);
         window_manager.addView(float_view, layout_params);
-        // SetupDragging(layout_params);
+        SetupDragging(layout_params);
 	}
 	
 	// 代码来自ai
@@ -94,6 +95,13 @@ public class FloatWindowService extends Service {
 
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
+					DisplayMetrics dm = new DisplayMetrics();
+					window_manager.getDefaultDisplay().getMetrics(dm);
+					int window_y = params.y-params.height/2 + dm.heightPixels/2;
+					if (event.getRawY() - window_y > 100) {
+						Log.i("touch", "y:"+event.getRawY()+",w.y:"+window_y);
+						return false;
+					}
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             // 记录触摸前的位置和触摸点坐标
@@ -101,7 +109,7 @@ public class FloatWindowService extends Service {
                             initialY = params.y;
                             initialTouchX = event.getRawX();
                             initialTouchY = event.getRawY();
-                            return true;
+                            return false;
 
                         case MotionEvent.ACTION_MOVE:
                             // 计算移动后的新位置，并更新 LayoutParams
@@ -109,7 +117,7 @@ public class FloatWindowService extends Service {
                             params.y = initialY + (int) (event.getRawY() - initialTouchY);
                             window_manager.updateViewLayout(float_view, params);
                             // ((TextView)float_view).setText(String.valueOf(params.x) + "," + String.valueOf(params.y));
-                            return true;
+                            return false;
                     }
                     return false;
                 }
