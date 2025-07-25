@@ -112,9 +112,18 @@ void checkEglError(const char* operation) {
     }
 }
 
-void AppEvent()
+void AppEvent(int event_type,
+              int key_code, int scan_code, int key_action, int mate_state,
+              int device_type, int action, int x, int y)
 {
+    ImGuiIO& io = ImGui::GetIO();
+    io.AddMousePosEvent(x, y);
+    if (action != 0) {
+        io.AddMouseButtonEvent(0, action==1);
+    }
+
 }
+
 void AppIterateLoop()
 {
     ANativeWindow_acquire(window);

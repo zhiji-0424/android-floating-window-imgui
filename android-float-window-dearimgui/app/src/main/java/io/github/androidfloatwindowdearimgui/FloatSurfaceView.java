@@ -35,6 +35,32 @@ public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
 		
 	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event)
+	{
+		if (event.getAction() == event.ACTION_DOWN
+			|| event.getAction() == event.ACTION_UP
+			|| event.getAction() == event.ACTION_MOVE
+			|| event.getAction() == event.ACTION_HOVER_MOVE) {
+			int action = 0;
+			switch (event.getAction()) {
+			case event.ACTION_DOWN:
+				action = 1;
+				break;
+			case event.ACTION_UP:
+				action = 2;
+				break;
+			case event.ACTION_HOVER_MOVE:
+			case event.ACTION_MOVE:
+				action = 0;
+				break;	
+			}
+			jnicallbacks.AppEvent(1, 0, 0, 0, 0, 2, action, (int)event.getX(), (int)event.getY());
+		}
+		return super.onTouchEvent(event);
+	}
+	
 }
 //
 
