@@ -54,7 +54,7 @@ void AppInit(ANativeWindow *window)
 	//for (int i=0;i<100;i++)
 	//AppIterate();
 	
-	LOGE("init结束。sieiieieiejejejejdjejejejejejejjfjfbfbehehe==============");
+	// LOGE("init结束。sieiieieiejejejejdjejejejejejejjfjfbfbehehe==============");
 }
 
 #define LOG_TAG "测试"
@@ -137,7 +137,7 @@ void AppIterateLoop()
         LOGE("eglGetDisplay error=%u", glGetError());
         return ;
     }
-    LOGE("生成g_EglDisplay");
+    //LOGE("生成g_EglDisplay");
 	//checkEglError("");
     //2、
     EGLint *version = new EGLint[2];
@@ -145,7 +145,7 @@ void AppIterateLoop()
         LOGE("eglInitialize error=%u", glGetError());
         return ;
     }
-    LOGE("eglInitialize成功");
+    //LOGE("eglInitialize成功");
     //checkEglError("");
     //3、
     const EGLint attribs[] = {EGL_BUFFER_SIZE, 32, EGL_RED_SIZE, 8, EGL_GREEN_SIZE, 8,
@@ -156,14 +156,14 @@ void AppIterateLoop()
         LOGE("eglGetConfigs  error =%u", glGetError());
         return ;
     }
-    LOGE("num_config=%d", num_config);
+    //LOGE("num_config=%d", num_config);
     //checkEglError("");
     // 4、
     if (!eglChooseConfig(g_EglDisplay, attribs, &mEglConfig, 1, &num_config)) {
         LOGE("eglChooseConfig  error=%u", glGetError());
         return ;
     }
-    LOGE("eglChooseConfig成功");
+    //LOGE("eglChooseConfig成功");
     //checkEglError("");
     //5、
     int attrib_list[] = {EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE};
@@ -178,14 +178,14 @@ void AppIterateLoop()
         LOGE("eglCreateWindowSurface  error = %u", glGetError());
         return ;
     }
-    LOGE("eglCreateWindowSurface成功");
+    //LOGE("eglCreateWindowSurface成功");
     //checkEglError("");
     //7、
     if (!eglMakeCurrent(g_EglDisplay, g_EglSurface, g_EglSurface, g_EglContext)) {
         LOGE("eglMakeCurrent  error = %u", glGetError());
         return ;
     }
-    LOGE("eglMakeCurrent成功");
+    //LOGE("eglMakeCurrent成功");
     //checkEglError("");
     }
 
@@ -196,7 +196,7 @@ void AppIterateLoop()
 
     // Redirect loading/saving of .ini file to our location.
     // Make sure 'g_IniFilename' persists while we use Dear ImGui.
-    g_IniFilename = std::string("/sdcard") + "/imgui.ini";
+    g_IniFilename = std::string("");std::string("/sdcard") + "/imgui.ini";
     io.IniFilename = g_IniFilename.c_str();
 
     // Setup Dear ImGui style
