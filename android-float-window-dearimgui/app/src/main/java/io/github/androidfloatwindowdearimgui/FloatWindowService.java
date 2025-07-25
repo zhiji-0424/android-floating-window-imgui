@@ -13,6 +13,7 @@ public class FloatWindowService extends Service {
 	
 	WindowManager window_manager = null;
 	FloatSurfaceView float_view = null;
+	WindowManager.LayoutParams layout_params = null;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -39,11 +40,27 @@ public class FloatWindowService extends Service {
 
 	// 创建
 	void CreateFloatWindow() {
-		// Toast.makeText(this, "创建了: CreateFloatWindow", Toast.LENGTH_SHORT).show();
 		float_view = new FloatSurfaceView(this);
-		// 不知道为什么总是半透明而不能仅背景透明
-		// float_view.getHolder().setFormat(PixelFormat.TRANSPARENT);
 		float_view.setZOrderOnTop(true);
+		
+		// 这里就不适配旧系统了
+        layout_params = new WindowManager.LayoutParams();
+		layout_params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
+		layout_params.format = PixelFormat.RGBA_8888;
+		layout_params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+        layout_params.flags = WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
+							| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+		/*WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+			| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+			| WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+			| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+			| WindowManager.LayoutParams.FLAG_FULLSCREEN*/
+		layout_params.width = 400;
+		layout_params.height= 400;
+		//layout_params.alpha = 0.0f;
+        // layout_params.gravity = Gravity.TOP | Gravity.START;
+		layout_params.x = 0;
+        layout_params.y = 0;
 	}
 
 	// 关闭 销毁
@@ -62,33 +79,9 @@ public class FloatWindowService extends Service {
 	}
 	
 	void StartFloatWindow() {
-		// Toast.makeText(this, "成功，仍待完善。", Toast.LENGTH_LONG).show();
-
-        float_view.setLayoutParams(
-		    new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-
-        // 这里就不适配旧系统了
-        // layout_params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-		// layout_params.gravity = Gravity.TOP | Gravity.START;
-		WindowManager.LayoutParams layout_params = new WindowManager.LayoutParams();
-		layout_params.format = PixelFormat.RGBA_8888;            // 设置图片格式，效果为背景透明
-		layout_params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
-        layout_params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-			| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
-			| WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-			| WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
-			| WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
-			| WindowManager.LayoutParams.FLAG_FULLSCREEN;
-		//layout_params.format = PixelFormat.RGBA_8888;
-		//layout_params.alpha = 0.0f;
-        layout_params.x = 0;
-        layout_params.y = 0;
-
         window_manager = (WindowManager)getSystemService(WINDOW_SERVICE);
         window_manager.addView(float_view, layout_params);
-        SetupDragging(layout_params);
+        // SetupDragging(layout_params);
 	}
 	
 	// 代码来自ai
