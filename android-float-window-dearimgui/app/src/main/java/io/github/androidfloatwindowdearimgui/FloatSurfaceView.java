@@ -39,6 +39,7 @@ public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 	@Override
 	public boolean onTouchEvent(MotionEvent event)
 	{
+		// 暂时未处理鼠标
 		if (event.getAction() == event.ACTION_DOWN
 			|| event.getAction() == event.ACTION_UP
 			|| event.getAction() == event.ACTION_MOVE
@@ -54,7 +55,7 @@ public class FloatSurfaceView extends SurfaceView implements SurfaceHolder.Callb
 			case event.ACTION_HOVER_MOVE:
 			case event.ACTION_MOVE:
 				action = 0;
-				break;	
+				break;
 			}
 			jnicallbacks.AppEvent(1, 0, 0, 0, 0, 2, action, (int)event.getX(), (int)event.getY());
 		}
