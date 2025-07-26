@@ -23,7 +23,12 @@ void AppEvent()
 
 void AppIterate()
 {
-    ImGui::Begin("你好, hello");
+    ImGuiIO& io = ImGui::GetIO();
+    ImGui::SetNextWindowPos(ImVec2(0, 0));          // 将窗口位置设置为屏幕左上角
+    ImGui::SetNextWindowSize(io.DisplaySize);      // 将窗口大小设置为屏幕分辨率
+    ImGui::Begin("你好, hello", nullptr, ImGuiWindowFlags_NoResize        // 禁止调整窗口大小
+                                       | ImGuiWindowFlags_NoMove          // 禁止移动窗口
+    );
     ImGui::Text("You need to load a font supporting Chinese.");
     ImGui::End();
 }
