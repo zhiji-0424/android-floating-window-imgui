@@ -10,7 +10,8 @@ SRC_DIR := ../../../../../../code/
 # 源代码
 LOCAL_SRC_FILES := \
     $(SRC_DIR)/main.cpp \
-    $(SRC_DIR)/jnicallbacks.cpp
+    jnicallbacks.cpp \
+    adapter.cpp
 
 # 调试开关(0:no,  1:yes)，可以命令行设置
 use_debug_loader ?= 0
