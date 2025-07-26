@@ -50,7 +50,9 @@ public class FloatWindowService extends Service {
 		layout_params.format = PixelFormat.RGBA_8888;
 		layout_params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
         layout_params.flags = WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED
-							| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+							| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
+							| WindowManager.LayoutParams.FLAG_FULLSCREEN
+							| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
 		/*WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 			| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 			| WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
@@ -92,32 +94,37 @@ public class FloatWindowService extends Service {
                 private int initialY; // 初始 Y 坐标（像素）
                 private float initialTouchX; // 触摸初始 X 坐标（屏幕像素）
                 private float initialTouchY; // 触摸初始 Y 坐标（屏幕像素）
+				private boolean touch_in_title = false;
 
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-					DisplayMetrics dm = new DisplayMetrics();
-					window_manager.getDefaultDisplay().getMetrics(dm);
-					int window_y = params.y-params.height/2 + dm.heightPixels/2;
-					if (event.getRawY() - window_y > 100) {
-						Log.i("touch", "y:"+event.getRawY()+",w.y:"+window_y);
-						return false;
-					}
+					//Log.i("touch", "params.y:"+params.y);
+					//Log.i("touch", "event.y:"+event.getY());
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
                             // 记录触摸前的位置和触摸点坐标
+							if (event.getY() > 100) {
+								// 起始点在标题栏位置才移动
+								return false;
+							}
+							touch_in_title = true;
                             initialX = params.x;
                             initialY = params.y;
                             initialTouchX = event.getRawX();
                             initialTouchY = event.getRawY();
-                            return false;
+                            return true;
 
                         case MotionEvent.ACTION_MOVE:
+							if (!touch_in_title) {
+								return false;
+							}
                             // 计算移动后的新位置，并更新 LayoutParams
-                            params.x = initialX + (int) (event.getRawX() - initialTouchX);
+							params.x = initialX + (int) (event.getRawX() - initialTouchX);
                             params.y = initialY + (int) (event.getRawY() - initialTouchY);
                             window_manager.updateViewLayout(float_view, params);
-                            // ((TextView)float_view).setText(String.valueOf(params.x) + "," + String.valueOf(params.y));
-                            return false;
+                            return true;
+						case MotionEvent.ACTION_UP:
+							touch_in_title = false;
                     }
                     return false;
                 }
