@@ -61,8 +61,6 @@ public class FloatWindowService extends Service {
 			| WindowManager.LayoutParams.FLAG_FULLSCREEN*/
 		layout_params.width = 400;
 		layout_params.height= 400;
-		//layout_params.alpha = 0.0f;
-        // layout_params.gravity = Gravity.TOP | Gravity.START;
 		layout_params.x = 0;
         layout_params.y = 0;
 	}
@@ -95,37 +93,67 @@ public class FloatWindowService extends Service {
                 private int initialY; // 初始 Y 坐标（像素）
                 private float initialTouchX; // 触摸初始 X 坐标（屏幕像素）
                 private float initialTouchY; // 触摸初始 Y 坐标（屏幕像素）
+				private int initialW;
+				private int initialH;
 				private boolean touch_in_title = false;
+				private boolean touch_in_resize = false;
 
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
 					//Log.i("touch", "params.y:"+params.y);
 					//Log.i("touch", "event.y:"+event.getY());
+					
+					
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
-                            // 记录触摸前的位置和触摸点坐标
-							if (event.getY() > 100) {
+                            if (event.getY() < 100) {
 								// 起始点在标题栏位置才移动
-								return false;
+								// 记录触摸前的位置和触摸点坐标
+								touch_in_title = true;
+								initialX = params.x;
+								initialY = params.y;
+								initialTouchX = event.getRawX();
+								initialTouchY = event.getRawY();
+								return true;
+							} else if (event.getX()>params.width-100 && event.getY()>params.height-100) {
+								// 记录触摸点位置和原大小、原位置
+								touch_in_resize = true;
+								initialW = params.width;
+								initialH = params.height;
+								initialTouchX = event.getX();
+								initialTouchY = event.getY();
+								initialX = params.x;
+								initialY = params.y;
+								// Log.i("debug", "进入分支");
+								return true;
 							}
-							touch_in_title = true;
-                            initialX = params.x;
-                            initialY = params.y;
-                            initialTouchX = event.getRawX();
-                            initialTouchY = event.getRawY();
-                            return true;
-
+							// Log.i("debug", resize_rect.toString());
+							// Log.i("debug", "x,y:"+(int)event.getX()+","+(int)event.getY());
+							break;
                         case MotionEvent.ACTION_MOVE:
-							if (!touch_in_title) {
-								return false;
+							if (touch_in_title) {
+								// 计算移动后的新位置，并更新 LayoutParams
+								params.x = initialX + (int) (event.getRawX() - initialTouchX);
+								params.y = initialY + (int) (event.getRawY() - initialTouchY);
+								window_manager.updateViewLayout(float_view, params);
+								return true;
+							} else if (touch_in_resize) {
+								// 根据手指位置变化，计算新的大小，不小于1
+								int dtx = (int)(event.getX()-initialTouchX);
+								int dty = (int)(event.getY()-initialTouchY);
+								params.width = Math.max(1, initialW + dtx);
+								params.height= Math.max(1, initialH + dty);
+								params.x = initialX + dtx/2;
+								params.y = initialY + dty/2;
+								// float_view.setLayoutParams(params);
+								window_manager.updateViewLayout(float_view, params);
+								return true;
 							}
-                            // 计算移动后的新位置，并更新 LayoutParams
-							params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                            params.y = initialY + (int) (event.getRawY() - initialTouchY);
-                            window_manager.updateViewLayout(float_view, params);
-                            return true;
+                            break;
 						case MotionEvent.ACTION_UP:
 							touch_in_title = false;
+							touch_in_resize = false;
+							break;
                     }
                     return false;
                 }
