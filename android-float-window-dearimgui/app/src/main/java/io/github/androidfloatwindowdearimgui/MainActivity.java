@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
 		if (have_permission()) {
 			StartService();
 		} else {
+			Toast.makeText(this, "需要悬浮窗权限", Toast.LENGTH_LONG).show();
 			Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
 					Uri.parse("package:" + getPackageName()));
 			startActivityForResult(intent, 1);
