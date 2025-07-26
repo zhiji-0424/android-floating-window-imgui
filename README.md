@@ -35,7 +35,7 @@
 
 ## 鸣谢
 
-1. [Imgui_Android](https://github.com/sfalexrog/Imgui_Android)，第一版参考了这个项目的思路，许可证副本见[license-other](license-other.txt)。
+1. [ImguiAndroid](https://gitee.com/alexmmc/ImguiAndroid)，第一版参考了这个项目的思路，许可证副本见[license-other](license-other.txt)。
 
 ## 未解决的问题
 
