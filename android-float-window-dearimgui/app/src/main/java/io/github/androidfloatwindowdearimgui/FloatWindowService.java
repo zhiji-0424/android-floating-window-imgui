@@ -53,6 +53,7 @@ public class FloatWindowService extends Service {
 							| WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 							| WindowManager.LayoutParams.FLAG_FULLSCREEN
 							| WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+		layout_params.alpha = 0.99f;
 		/*WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
 			| WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 			| WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
