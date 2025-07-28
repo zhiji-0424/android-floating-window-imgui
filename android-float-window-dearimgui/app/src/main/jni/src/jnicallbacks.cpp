@@ -13,7 +13,6 @@ extern void AdapterAppEvent(int event_type,
 extern void AdapterAppQuit();
 extern void AdapterAssetInit(AAssetManager *asset_manager);
 
-static ANativeWindow *window = 0;
 
 extern "C" {
 
@@ -32,11 +31,13 @@ extern "C" {
 }
 
 JNIEXPORT void JNICALL Java_net_zhiji_androidfloatingwindowimgui_jnicallbacks_AppInit(JNIEnv *env, jobject obj, jobject surface) {
-    window = ANativeWindow_fromSurface(env, surface);
+    ANativeWindow *window = ANativeWindow_fromSurface(env, surface);
     if (!window) {
-        // 日志。。
+        __android_log_print(ANDROID_LOG_ERROR, "jnicallbacks.cpp", "ANativeWindow_fromSurface 发生错误，window==null");
+        exit(1);
+    } else {
+        AdapterAppInit(window);
     }
-    AdapterAppInit(window);
 }
 
 JNIEXPORT void JNICALL Java_net_zhiji_androidfloatingwindowimgui_jnicallbacks_AppQuit(JNIEnv *env, jobject obj) {
@@ -48,6 +49,7 @@ JNIEXPORT void JNICALL Java_net_zhiji_androidfloatingwindowimgui_jnicallbacks_Ap
     AAssetManager* mgr = AAssetManager_fromJava(env, jasset_manager);
     if (!mgr) {
         __android_log_print(ANDROID_LOG_ERROR, "jnicallbacks.cpp", "AAssetManager_fromJava 发生错误，mgr==null");
+        exit(1);
     } else {
         AdapterAssetInit(mgr);
     }
