@@ -33,11 +33,21 @@ public class MainActivity extends Activity {
 		if (have_permission()) {
 			StartService();
 		} else {
-			Toast.makeText(this, "需要悬浮窗权限", Toast.LENGTH_LONG).show();
-			Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-					Uri.parse("package:" + getPackageName()));
-			startActivityForResult(intent, 1);
-			// 请求码是1。
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("请求权限");
+			builder.setMessage("正如应用名称，需要悬浮窗权限才能实现其功能。请在接下来的界面找到应用并授予显示在其他应用上层的权限。");
+			builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which)
+					{
+						Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+												   Uri.parse("package:" + getPackageName()));
+						startActivityForResult(intent, 1);
+						// 请求码是1。
+					}
+				});
+			builder.setCancelable(false);
+			builder.show();
 		}
 		
 		// 输出日志
@@ -58,7 +68,8 @@ public class MainActivity extends Activity {
 			if (have_permission()) {
 				StartService();
 			} else {
-				Toast.makeText(this, "在刚刚的页面没有授权", Toast.LENGTH_LONG).show();
+				Toast.makeText(this, "在刚刚的页面没有授权", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "请手动删除程序后台，重新操作", Toast.LENGTH_LONG).show();
 			}
 		}
 	}
