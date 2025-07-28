@@ -2,6 +2,7 @@
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include <android/native_window.h>
+#include <android/asset_manager.h>
 #include <android/log.h>
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
@@ -17,6 +18,7 @@ static ANativeWindow       *window;
 static bool                 g_Initialized = false;
 static char                 g_LogTag[] = "ImGuiExample";
 static std::string          g_IniFilename = "";
+static AAssetManager       *asset_manager;
 
 
 
@@ -31,7 +33,7 @@ static void AdapterAppLoop(); // 创建线程要用
 static void AdapterAppIterate();
 static void checkEglError(const char* operation);
 
-extern void AppInit();
+extern void AppInit(AAssetManager *asset_manager);
 extern void AppEvent();
 extern void AppIterate();
 extern void AppQuit();
@@ -46,6 +48,11 @@ void AdapterAppInit(ANativeWindow *window)
 
     std::thread *t = new std::thread(AdapterAppLoop);
     t->detach();
+}
+
+void AdapterAssetInit(AAssetManager *asset_manager)
+{
+    ::asset_manager = asset_manager;
 }
 
 void AdapterAppEvent(int event_type,
@@ -186,7 +193,7 @@ void AdapterAppLoop()
 
 
     // 程序开始
-    AppInit();
+    AppInit(::asset_manager);
 
     while(true)
     {

@@ -7,6 +7,7 @@ import android.widget.*;
 import android.view.*;
 import android.graphics.*;
 import android.util.*;
+import net.zhiji.androidfloatingwindowimgui.*;
 
 // 默认了权限具备才会启动服务
 
@@ -24,6 +25,7 @@ public class FloatWindowService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		jnicallbacks.AppAssetInit(getAssets());
 		CreateFloatWindow();
 		ShowFloatWindow();
 	}

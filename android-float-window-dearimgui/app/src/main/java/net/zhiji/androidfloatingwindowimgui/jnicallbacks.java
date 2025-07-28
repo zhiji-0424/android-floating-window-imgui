@@ -1,9 +1,12 @@
 package net.zhiji.androidfloatingwindowimgui;
+
 import android.view.*;
+import android.content.res.*;
 
 public class jnicallbacks {
 	public native static void AppInit(Surface surface);
 	public native static void AppQuit();
+	public native static void AppAssetInit(AssetManager asset_manager);
 	// public native static void AppIterate();
 	
 	// event_type: key:0, motion:1, mouse_button:2
