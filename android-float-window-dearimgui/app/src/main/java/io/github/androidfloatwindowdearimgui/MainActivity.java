@@ -50,6 +50,12 @@ public class MainActivity extends Activity {
 			builder.show();
 		}
 		
+		// 申请文件访问权限
+		if (!Environment.isExternalStorageManager()) {
+			Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+			startActivity(intent);
+		}
+		
 		// 输出日志
 		new Thread(new Runnable() {
 				@Override

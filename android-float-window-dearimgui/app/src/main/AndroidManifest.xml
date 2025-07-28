@@ -3,6 +3,9 @@
 
 	<!-- 悬浮窗权限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+	<!-- 全文件访问 -->
+	<uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+		
 	<uses-sdk
         android:minSdkVersion="21"
         android:targetSdkVersion="35" />
