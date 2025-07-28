@@ -162,9 +162,9 @@ void AdapterAppLoop()
     // We load the default font with increased size to improve readability on many devices with "high" DPI.
     // FIXME: Put some effort into DPI awareness.
     // Important: when calling AddFontFromMemoryTTF(), ownership of font_data is transferred by Dear ImGui by default (deleted is handled by Dear ImGui), unless we set FontDataOwnedByAtlas=false in ImFontConfig
-    ImFontConfig font_cfg;
-    font_cfg.SizePixels = 22.0f;
-    io.Fonts->AddFontDefault(&font_cfg);
+    // ImFontConfig font_cfg;
+    // font_cfg.SizePixels = 22.0f;
+    // io.Fonts->AddFontDefault(&font_cfg);
     //void* font_data;
     //int font_data_size;
     //ImFont* font;

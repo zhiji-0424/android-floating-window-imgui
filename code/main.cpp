@@ -30,6 +30,14 @@ void AppInit(AAssetManager *asset_manager)
         // LOGE("asset_descriptor==null");
     // }
     // LOGE("文件内容：%s", data);
+    
+    ImGuiIO& io = ImGui::GetIO();
+    // ImFontConfig font_cfg;
+    // font_cfg.SizePixels = 22.0f;
+    // io.Fonts->AddFontDefault(&font_cfg);
+    ImFont *font = io.Fonts->AddFontFromFileTTF("/storage/emulated/0/Documents/MiSans-Normal.ttf");
+    ImGui::GetStyle().ScaleAllSizes(3.0f);
+    ImGui::GetStyle().FontScaleDpi = 3.0f;
 }
 
 void AppEvent()
@@ -42,10 +50,11 @@ void AppIterate()
     ImGuiIO& io = ImGui::GetIO();
     ImGui::SetNextWindowPos(ImVec2(0, 0));          // 将窗口位置设置为屏幕左上角
     ImGui::SetNextWindowSize(io.DisplaySize);      // 将窗口大小设置为屏幕分辨率
-    ImGui::Begin("你好, hello", nullptr, ImGuiWindowFlags_NoResize        // 禁止调整窗口大小
+    ImGui::Begin(u8"你好, hello", nullptr, ImGuiWindowFlags_NoResize        // 禁止调整窗口大小
                                        | ImGuiWindowFlags_NoMove          // 禁止移动窗口
     );
     ImGui::Text("You need to load a font supporting Chinese.");
+    ImGui::Text("你需要加载一个支持中文的字体。");
     ImGui::End();
 }
 
