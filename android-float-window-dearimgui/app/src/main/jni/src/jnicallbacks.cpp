@@ -1,4 +1,5 @@
 #include <jni.h>
+#include <stdlib.h>
 #include <android/log.h>
 #include <android/native_window.h>
 #include <android/native_window_jni.h>
