@@ -39,7 +39,7 @@
 
 ## 鸣谢
 
-1. [ImguiAndroid](https://gitee.com/alexmmc/ImguiAndroid)，第一版参考了这个项目的思路，许可证副本见[license-other](license-other.txt)。
+1. [ImguiAndroid](https://gitee.com/alexmmc/ImguiAndroid)，第一版参考了这个项目的思路，许可证副本见[license-other](https://gitee.com/alexmmc/ImguiAndroid/blob/master/LICENSE)。
 
 
 ## 可改进的部分
