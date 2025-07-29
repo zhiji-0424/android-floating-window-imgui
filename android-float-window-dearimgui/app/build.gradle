@@ -9,8 +9,8 @@ android {
 		applicationId "io.github.androidfloatwindowdearimgui"
 		minSdkVersion 21
 		targetSdkVersion 34
-		versionCode 2
-		versionName "1.1"
+		versionCode 3
+		versionName "1.2"
 	}
 	
 	// ecj模式(设置 -> 实验室 -> ecj)设置Java语法版本
