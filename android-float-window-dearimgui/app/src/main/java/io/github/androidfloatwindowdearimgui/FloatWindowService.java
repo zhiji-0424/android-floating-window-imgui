@@ -88,7 +88,7 @@ public class FloatWindowService extends Service {
         SetupDragging(layout_params);
 	}
 	
-	// 代码来自ai
+	// 代码来自ai，已经过修改
     void SetupDragging(final WindowManager.LayoutParams params) {
         float_view.setOnTouchListener(new View.OnTouchListener() {
                 private int initialX; // 初始 X 坐标（像素）
