@@ -47,4 +47,8 @@
 - 全屏的SurfaceView总是半透明，而仅要求背景透明
 - 不同线程执行`EGL`，上下文不同？（在AppInit和AppIterate功能里，现已把AppInit的代码放在同一个线程
 - 如何传递输入事件(用`jni`连接*Java*和*cpp*时)？
+
+
+## 其他方案
+
 - 可选方案：获取`NativeActivity`源代码，修改使它的`SurfaceView`放置在悬浮窗中
