@@ -8,6 +8,7 @@
 ![Java](https://img.shields.io/badge/Java-8%2B-brightgreen?logo=java)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow)
 
+
 ## 项目简介
 
 - 在 Android 设备上运行并显示 ImGui 窗口。
@@ -15,6 +16,7 @@
 > ~~因设备开发效率低，暂停开发，~~*欢迎协助，幸甚*
 
 > 有新方案了，继续开发
+
 
 ## 获取和安装
 
@@ -26,6 +28,7 @@
 2. 原地解压仓库根目录下的两个压缩包
 2. 编译并安装到 Android 设备，授予悬浮窗权限后即可使用。
 
+
 ## 设计思路
 
 1. 使用service启动，保持后台长期运行
@@ -33,9 +36,11 @@
 3. ~~创建多个透明的普通`View`接受输入，可触摸、可聚焦，每个view的位置跟随对应的imgui窗口，建议在触摸或鼠标事件结束后更新位置~~
 4. 完善**触屏输入法**功能支持
 
+
 ## 鸣谢
 
 1. [ImguiAndroid](https://gitee.com/alexmmc/ImguiAndroid)，第一版参考了这个项目的思路，许可证副本见[license-other](license-other.txt)。
+
 
 ## 可改进的部分
 
@@ -48,7 +53,10 @@
 
 - 更多输入事件（目前只有手指触摸）
 - 完善`Service`的生命周期、添加退出功能
-- 全屏的SurfaceView总是半透明，而仅要求背景透明
+- 录屏截屏时imgui窗口非半透明
+
+
+## 扩展问题
 - 不同线程执行`EGL`，上下文不同？（在AppInit和AppIterate功能里，现已把AppInit的代码放在同一个线程
 - 如何传递输入事件(用`jni`连接*Java*和*cpp*时)？
 
